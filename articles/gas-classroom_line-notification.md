@@ -9,3 +9,11 @@ published: false
 # はじめに
 Google Classroomってパソコン版だと新着通知が来ないんですよね…。なので全く気付かなくて忘れ物をしたり、課題をやってなかったり。
 いっそLINEで通知してくれればいいのに…。ということで作ります。
+
+# 使用技術
+- Google Apps Script (GAS)
+- Google Classroom API
+- Google Sheet API
+- LINE Notify API
+
+# 仕様
