@@ -13,7 +13,6 @@ MySQLをローカルのDocker上で動かす備忘録です。Windowsでのみ�
 .
 │  Dockerfile
 │  my.conf
-│  tree.txt
 ```
 
 ## Dockerfile
