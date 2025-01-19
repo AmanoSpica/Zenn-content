@@ -31,7 +31,7 @@ Host github github-main
     TCPKeepAlive yes
     IdentitiesOnly yes
 
-# Github Sub Account
+# GitHub Sub Account
 Host github-sub
     HostName github.com
     IdentityFile <ファイル名B>
@@ -42,19 +42,19 @@ Host github-sub
 ```
 
 
-## Githubに公開鍵を登録
-作成した公開鍵(`<ファイル名>.pub`) をGithubに登録します。それぞれのアカウントで行ってください。
+## GitHubに公開鍵を登録
+作成した公開鍵(`<ファイル名>.pub`) をGitHubに登録します。それぞれのアカウントで行ってください。
 
 1. catコマンドまたはメモ帳で `<ファイル名>.pub` を開いて中身をコピーしてください。
 
-2. ブラウザでGithubを開き、Settings > SSH and GPG keys にアクセスします
+2. ブラウザでGitHubを開き、Settings > SSH and GPG keys にアクセスします
 ![](/images/git-setup-2account/github-sshkey.png)
 
 3. 「New SSH key」をクリックして`Key`のところに先ほどコピーした公開鍵の中身を貼り付けます。<br>`Title`は何でも構いません。`Key Type` は `Authentication Key` になっていることを確認してください。
 ![](/images/git-setup-2account/github-new-sshkey.png)
 
 
-# Githubとssh接続を確認
+# GitHubとssh接続を確認
 ```shell
 # Main Account
 $ ssh -T github
