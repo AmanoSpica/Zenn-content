@@ -2,8 +2,8 @@
 title: "ついにKeyball44をつくる"
 emoji: "🔨"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["keyball", "keyball44", "自作キーボード", "contest2024"]
-published: true
+topics: ["keyball", "keyball44", "自作キーボード"]
+published: false
 published_at: "2024-12-24 17:00"
 ---
 

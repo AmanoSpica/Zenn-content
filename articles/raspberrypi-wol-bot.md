@@ -19,11 +19,11 @@ Wake on Lanはルーター越えが難しいという問題点がありました
 
 # 導入方法
 ### 事前準備
-こちらの記事の "WoLの利用手順" - "「起動される側のPCの設定」"を行ってください。
+こちらの記事の "WoLの利用手順"「起動される側のPCの設定」を行ってください。
 https://zenn.dev/headwaters/articles/317fa82c78e077
 
 ## 1. [Windows] ファイアウォールの設定
-Windowsのファイアウォールはデフォルト状態ではpingのレスポンスを返さない設定になっています。PCの状態確認のために使用するので有効化します。
+PCの死活監視のためにpingコマンドを使用するのですが、Windowsのファイアウォールはデフォルト状態ではpingのレスポンスを返さない設定になっています。
 
 検索から「セキュリティが強化されたWindows Defenderファイアウォール」を起動します。
 受信の規則から「ファイルとプリンターの共有 (エコー要求 - ICMPv4 受信)」を有効化してください。
@@ -38,38 +38,45 @@ sudo apt install ethtool wakeonlan
 ### B. WoLを有効化
 WoLを設定したいネットワークデバイス名を確認してください。
 ```bash:bash
-$ ip addr
+ip addr
+```
+```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    ...
+    (略)
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    ...
+    (略)
 ```
 
 今回は`eth0`に設定します。
 ```bash:bash
-$ sudo ethtool eth0
+sudo ethtool eth0
+```
+```
 Settings for eth0:
-        ...
+        (略)
         Supports Wake-on: pumbag
         Wake-on: d
-        ...
+        (略)
 ```
 
 `Wake-on`が`d`なら無効、`g`なら有効です。
 
 有効化します。
 ```bash:bash
-$ sudo ethtool -s eth0 wol g
-$ sudo ethtool eth0
-        ...
+sudo ethtool -s eth0 wol g
+sudo ethtool eth0
+```
+```
+Settings for eth0:
+        (略)
         Supports Wake-on: pumbag
         Wake-on: g
-        ...
+        (略)
 ```
 
 再起動すると無効化されてしまうので、再起動後に自動で有効化するように設定します。
 ```bash:bash
-$ sudo sh -c "echo '#! /bin/sh
+sudo sh -c "echo '#! /bin/sh
 ### BEGIN INIT INFO
 # Provides:	wakeonlan
 # Required-Start:
@@ -89,7 +96,9 @@ sudo update-rc.d wakeonlan defaults
 
 設定ができたか確認します。
 ```bash:bash
-$ ls -l /etc/rc*.d/*wakeonlan
+ls -l /etc/rc*.d/*wakeonlan
+```
+```
 lrwxrwxrwx 1 root root 19 11月 15 21:42 /etc/rc2.d/S01wakeonlan -> ../init.d/wakeonlan
 lrwxrwxrwx 1 root root 19 11月 15 21:42 /etc/rc3.d/S01wakeonlan -> ../init.d/wakeonlan
 lrwxrwxrwx 1 root root 19 11月 15 21:42 /etc/rc4.d/S01wakeonlan -> ../init.d/wakeonlan
@@ -161,9 +170,21 @@ nohup python main.py &
 https://zenn.dev/amano_spica/articles/ubuntu-systemctl-service
 
 ## 5. Discord上での設定
+① `/init`を実行
+②`/create_button`を実行
 
-<!-- TODO -->
+# その他の機能
+- 簡易的な権限管理 (`/add_user`, `/remove_user`コマンド)
+こちらで登録したユーザーのみPCの操作、設定が可能です。
+※`/init`を実行したユーザーは自動的に権限が付与されます。
+- PC死活監視
+`/create_button`で設置したボタンには現在のPCの状態(オンライン/オフライン)が表示されます。
 
+# おわりに
+PCの電源をつけるためだけにルータの設定を触りたいとは思わなかったので作りました。
+Discord経由でラズパイからデータを取得したり、ラズパイを操作したりするのは我ながらいいアイデアだと思いますので、みなさんも活用してみてはいかがでしょうか。
+
+（こんなの絶対使う人いないだろ... と書きながら思っていたのは内緒）
 
 # 参考文献
 https://zenn.dev/headwaters/articles/317fa82c78e077
