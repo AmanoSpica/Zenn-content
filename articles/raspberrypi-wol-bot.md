@@ -3,7 +3,8 @@ title: "Discord発RaspberryPi経由WoL線 (Discordを経由して外出先から
 emoji: "🚄"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["discord", "discordpy", "raspberrypi", "wol"]
-published: false
+published: true
+published_at: "2025-01-22 17:10"
 ---
 
 https://github.com/AmanoSpica/WoL-Bot.git
